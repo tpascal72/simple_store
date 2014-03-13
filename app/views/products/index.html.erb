@@ -1,0 +1,48 @@
+<h1>Listing products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Stock quantity</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <% @summed_prices += product.price %>
+      <% @sum_of_quantity += product.stock_quantity %>
+
+      <% if @max_price < product.price;  @max_price = product.price; end %>
+
+      <tr>
+        <td><%= product.title %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+        <td><%= product.stock_quantity %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product', new_product_path %>
+
+<p>Average price of products: <%= @summed_prices / @products.size %></p>
+<p>Max product price: <%= @max_price %></p>
+<p>Number of unique products: <%= @products.size %></p>
+<p>Total stock quantity: <%= @sum_of_quantity %></p>
+
+<% while @count < 100 %>
+  <p>Chunky Monkey</p>
+<% @count += 1 %>
+<% end %>
